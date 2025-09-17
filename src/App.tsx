@@ -12,7 +12,7 @@ function App() {
   });
 
   // Data específica - altere aqui para a sua data desejada
-  const startDate = new Date('2023-01-15T10:30:00'); // Exemplo: 15 de janeiro de 2023, 10:30
+  const startDate = new Date('2022-09-17T18:14:00'); // Exemplo: 17 de setembro de 2022, 18:14
 
   useEffect(() => {
     const calculateTimeElapsed = () => {
@@ -73,15 +73,14 @@ function App() {
       <div className="text-center max-w-2xl mx-auto animate-fade-in">
         {/* Título */}
         <h1 className="text-4xl md:text-6xl font-light text-gray-800 mb-8 tracking-wide">
-          Nosso Tempo
+          Nosso Tempo Juntos
         </h1>
         
         {/* Foto Central */}
         <div className="relative mb-8 group">
           <div className="absolute -inset-4 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300 blur-lg"></div>
           <img
-            src="https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="Casal apaixonado"
+            src="./public/nos.png"
             className="relative w-80 h-80 md:w-96 md:h-96 rounded-full object-cover shadow-2xl mx-auto border-4 border-white transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute -top-4 -right-4 bg-rose-500 rounded-full p-3 shadow-lg animate-pulse">
