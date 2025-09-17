@@ -14,86 +14,50 @@ function App() {
   // Data específica - altere aqui para a sua data desejada
   const startDate = new Date('2022-09-17T18:14:00'); // Exemplo: 17 de setembro de 2022, 18:14
 
-  useEffect(() => {
-    const calculateTimeElapsed = () => {
-      const now = new Date();
-      let tempDate = new Date(startDate);
-      
-      let years = 0;
-      let months = 0;
-      let days = 0;
-      let hours = 0;
-      let minutes = 0;
-      let seconds = 0;
+useEffect(() => {
+    const calculateTimeElapsed = () => {
+      const now = new Date();
+      let years = now.getFullYear() - startDate.getFullYear();
+      let months = now.getMonth() - startDate.getMonth();
+      let days = now.getDate() - startDate.getDate();
+      let hours = now.getHours() - startDate.getHours();
+      let minutes = now.getMinutes() - startDate.getMinutes();
+      let seconds = now.getSeconds() - startDate.getSeconds();
 
-      // Calcular anos
-      while (tempDate.getFullYear() < now.getFullYear() || 
-             (tempDate.getFullYear() === now.getFullYear() && tempDate.getMonth() < now.getMonth()) ||
-             (tempDate.getFullYear() === now.getFullYear() && tempDate.getMonth() === now.getMonth() && tempDate.getDate() <= now.getDate())) {
-        if (tempDate.getFullYear() < now.getFullYear()) {
-          tempDate.setFullYear(tempDate.getFullYear() + 1);
-          if (tempDate > now) {
-              tempDate.setFullYear(tempDate.getFullYear() - 1);
-              break;
-          }
-          years++;
-        } else {
-            break;
-        }
-      }
+      // Lógica de ajuste para o cálculo de tempo
+      if (seconds < 0) {
+        seconds += 60;
+        minutes--;
+      }
+      if (minutes < 0) {
+        minutes += 60;
+        hours--;
+      }
+      if (hours < 0) {
+        hours += 24;
+        days--;
+      }
+      if (days < 0) {
+        const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += lastMonth.getDate();
+        months--;
+      }
+      if (months < 0) {
+        months += 12;
+        years--;
+      }
+      
+      setTimeElapsed({ years, months, days, hours, minutes, seconds });
+    };
 
-      // Voltar a data temporária para a contagem de meses
-      tempDate = new Date(startDate);
-      tempDate.setFullYear(tempDate.getFullYear() + years);
+    // Calcular imediatamente
+    calculateTimeElapsed();
 
-      // Calcular meses
-      while (tempDate.getMonth() < now.getMonth() || (tempDate.getMonth() === now.getMonth() && tempDate.getDate() <= now.getDate())) {
-        if (tempDate.getMonth() < now.getMonth()) {
-          tempDate.setMonth(tempDate.getMonth() + 1);
-          if (tempDate > now) {
-              tempDate.setMonth(tempDate.getMonth() - 1);
-              break;
-          }
-          months++;
-        } else {
-          break;
-        }
-      }
+    // Atualizar a cada segundo
+    const interval = setInterval(calculateTimeElapsed, 1000);
 
-      // Voltar a data temporária para a contagem de dias
-      tempDate = new Date(startDate);
-      tempDate.setFullYear(tempDate.getFullYear() + years);
-      tempDate.setMonth(tempDate.getMonth() + months);
-
-      // Calcular dias
-      while (tempDate.getDate() < now.getDate() || (tempDate.getDate() === now.getDate() && tempDate.getHours() <= now.getHours())) {
-          if (tempDate.getDate() < now.getDate()) {
-              tempDate.setDate(tempDate.getDate() + 1);
-              if (tempDate > now) {
-                  tempDate.setDate(tempDate.getDate() - 1);
-                  break;
-              }
-              days++;
-          } else {
-              break;
-          }
-      }
-
-      // Calcular horas, minutos e segundos a partir da diferença de milissegundos restante
-      const remainingMs = now.getTime() - tempDate.getTime();
-      hours = Math.floor(remainingMs / (1000 * 60 * 60));
-      minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
-      seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
-
-      setTimeElapsed({ years, months, days, hours, minutes, seconds });
-    };
-
-    // Chamar a função a cada segundo
-    const interval = setInterval(calculateTimeElapsed, 1000);
-
-    // Limpar o intervalo quando o componente for desmontado
-    return () => clearInterval(interval);
-  }, [startDate]);
+    return () => clearInterval(interval);
+  }, [startDate]);
 
   const formatTimeString = () => {
     const parts = [];
