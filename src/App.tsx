@@ -80,7 +80,7 @@ function App() {
         <div className="relative mb-8 group">
           <div className="absolute -inset-4 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300 blur-lg"></div>
           <img
-            src="./public/nos.png"
+            src="/public/nos.png"
             className="relative w-80 h-80 md:w-96 md:h-96 rounded-full object-cover shadow-2xl mx-auto border-4 border-white transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute -top-4 -right-4 bg-rose-500 rounded-full p-3 shadow-lg animate-pulse">
