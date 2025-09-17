@@ -4,7 +4,7 @@ Um site elegante e responsivo que calcula e exibe em tempo real quanto tempo se 
 
 ## 🚀 Demo
 
-Veja o site funcionando: [https://site-contador-de-tem-yxhk.bolt.host](https://site-contador-de-tem-yxhk.bolt.host)
+Veja o site funcionando: [https://nossotempojunto.netlify.app/](https://nossotempojunto.netlify.app/)
 
 ## 🛠️ Tecnologias Utilizadas
 
